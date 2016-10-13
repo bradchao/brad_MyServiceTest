@@ -28,7 +28,16 @@ public class MyService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        mp.start();
+        boolean isPause = intent.getBooleanExtra("isPause", false);
+        if (isPause){
+            if (mp.isPlaying()) {
+                mp.pause();
+            }
+        }else {
+            if (!mp.isPlaying()) {
+                mp.start();
+            }
+        }
         return super.onStartCommand(intent, flags, startId);
     }
 

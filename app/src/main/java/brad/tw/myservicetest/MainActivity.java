@@ -17,6 +17,11 @@ public class MainActivity extends AppCompatActivity {
         Intent it = new Intent(this, MyService.class);
         startService(it);
     }
+    public void pause(View v){
+        Intent it = new Intent(this, MyService.class);
+        it.putExtra("isPause", true);
+        startService(it);
+    }
     public void stopService(View v){
         Intent it = new Intent(this, MyService.class);
         stopService(it);
