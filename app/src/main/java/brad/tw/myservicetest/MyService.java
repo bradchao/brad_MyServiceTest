@@ -2,10 +2,13 @@ package brad.tw.myservicetest;
 
 import android.app.Service;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.util.Log;
 
 public class MyService extends Service {
+    private MediaPlayer mp;
+
     public MyService() {
     }
 
@@ -19,18 +22,24 @@ public class MyService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.v("brad", "onCreate");
+        mp = MediaPlayer.create(this,R.raw.brad);
+    }
+
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        mp.start();
+        return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.v("brad", "onDestroy");
+        if (mp != null ){
+            mp.stop();
+            mp.release();
+            mp = null;
+        }
     }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.v("brad", "onStartCommand");
-        return super.onStartCommand(intent, flags, startId);
-    }
 }
